@@ -192,6 +192,28 @@ payments-core/
 
 ---
 
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `make up` | Start API (foreground) |
+| `make down` | Stop services |
+| `make logs` | Tail logs |
+| `make ps` | Show running containers |
+| `make sh` | Shell inside API container |
+| `make lock` | Generate/update uv.lock |
+| `make sync` | Install dependencies from lockfile |
+| `make test` | Run all tests |
+| `make test-file FILE=...` | Run specific test file |
+| `make test-coverage` | Run tests with coverage |
+| `make lint` | Ruff check |
+| `make lint-fix` | Ruff check with auto-fix |
+| `make fmt` | Ruff format |
+| `make typecheck` | Mypy strict type checking |
+| `make check` | Lint + typecheck + test |
+
+---
+
 ## Development Approach
 
 The project will be developed **incrementally by stages**, each accompanied by an **Architecture Decision Record (ADR)**.

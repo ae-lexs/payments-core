@@ -1,16 +1,17 @@
 """Shared pytest fixtures for the test suite."""
 
-import pytest
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-from payments_core.infrastructure.time_provider import FixedTimeProvider
+import pytest
+
 from payments_core.infrastructure.locking import InMemoryLockProvider
+from payments_core.infrastructure.time_provider import FixedTimeProvider
 
 
 @pytest.fixture
 def fixed_time() -> datetime:
     """A fixed timestamp for deterministic testing."""
-    return datetime(2024, 1, 15, 12, 0, 0, tzinfo=timezone.utc)
+    return datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
 
 
 @pytest.fixture

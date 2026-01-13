@@ -1,7 +1,7 @@
 """Time provider - Clock abstraction for testability."""
 
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 class TimeProvider(ABC):
@@ -16,7 +16,7 @@ class SystemTimeProvider(TimeProvider):
     """Production time provider using system clock."""
 
     def now(self) -> datetime:
-        return datetime.now(timezone.utc)
+        return datetime.now(UTC)
 
 
 class FixedTimeProvider(TimeProvider):

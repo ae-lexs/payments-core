@@ -1,9 +1,14 @@
 """Locking mechanisms for concurrency control."""
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from threading import Lock
-from typing import Iterator
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 
 class LockProvider(ABC):

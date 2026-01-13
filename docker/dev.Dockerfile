@@ -18,12 +18,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # 1) Install dependencies in a cached layer (only lock + pyproject copied)
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-install-project
+RUN uv sync --frozen --no-install-project --all-extras
 
 # 2) Copy the actual project and install it (editable is fine for dev)
 COPY src ./src
 COPY tests ./tests
-RUN uv sync --frozen
+RUN uv sync --frozen --all-extras
 
 EXPOSE 8000
 

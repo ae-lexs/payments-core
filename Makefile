@@ -40,7 +40,7 @@ lock:
 	docker compose run --rm api uv lock
 
 sync:
-	docker compose run --rm api uv sync --frozen
+	docker compose run --rm api uv sync --frozen --all-extras
 
 test:
 	docker compose run --rm api uv run pytest
