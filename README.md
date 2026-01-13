@@ -243,10 +243,19 @@ Each stage will:
 
 This ensures the system evolves without regressions.
 
+### Architecture Decision Records
+
+| ADR | Title | Status |
+|-----|-------|--------|
+| [ADR-001](docs/ADR-001.md) | Core Domain Model and In-Memory Correctness | Proposed |
+| [ADR-002](docs/ADR-002.md) | Time Provider Interface and Implementation | Proposed |
+
 ---
 
 ## Status
 
 🚧 **Work in progress** — project is intentionally built step by step.
 
-Next step: **Stage 1 ADR — Core domain model & in-memory capture correctness**
+Current stage: **Stage 1 — Core domain model & in-memory capture correctness**
+
+Next step: **Implement ADR-001 and ADR-002**
