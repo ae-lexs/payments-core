@@ -250,6 +250,7 @@ This ensures the system evolves without regressions.
 | [ADR-001](docs/ADR-001.md) | Core Domain Model and In-Memory Correctness | Proposed |
 | [ADR-002](docs/ADR-002.md) | Time Provider Interface and Implementation | Proposed |
 | [ADR-003](docs/ADR-003.md) | Lock Provider Interface and In-Memory Implementation | Proposed |
+| [ADR-004](docs/ADR-004.md) | Repository Interfaces and CapturePayment Use Case | Proposed |
 
 ---
 
