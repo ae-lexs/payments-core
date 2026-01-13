@@ -119,55 +119,74 @@ Constraints:
 
 The project follows **Clean Architecture** principles:
 
-* **Domain**: entities, value objects, invariants, state machine
-* **Application**: use cases (e.g. `CapturePayment`), orchestration logic
-* **Infrastructure**: database, repositories, time provider, locking mechanisms
-* **Interfaces**: HTTP API layer (FastAPI or equivalent)
+* **Domain**: entities, value objects, domain services, invariants, state machine
+* **Application**: use cases (e.g. `CapturePayment`), ports (abstract interfaces), DTOs
+* **Infrastructure**: database repositories, time provider, locking mechanisms
+* **Entrypoints**: HTTP API layer (FastAPI)
 
 Business rules do not depend on frameworks, databases, or delivery mechanisms.
 
 ```mermaid
 flowchart LR
     Domain["Domain<br/>(Entities, Value Objects, Rules)"]
-    UseCases["Use Cases<br/>(Application Logic)"]
-    Adapters["Adapters<br/>(Infrastructure)"]
-    Entrypoints["Entrypoints<br/>(REST / GraphQL / gRPC)"]
+    Application["Application<br/>(Use Cases, Ports)"]
+    Infrastructure["Infrastructure<br/>(Repositories, Providers)"]
+    Entrypoints["Entrypoints<br/>(REST API)"]
 
-    Entrypoints --> UseCases
-    Adapters --> UseCases
-    UseCases --> Domain
+    Entrypoints --> Application
+    Infrastructure --> Application
+    Application --> Domain
 ```
 
 ---
 
 ## Technology Stack
 
-* **Language**: Python
-* **Package management**: UV
-* **API**: FastAPI (planned)
-* **Database**: Relational (PostgreSQL planned)
+* **Language**: Python 3.14
+* **Package management**: uv
+* **API**: FastAPI
+* **Database**: PostgreSQL (planned)
 * **Containerization**: Docker + Docker Compose
 * **Testing**: pytest
+* **Linting**: ruff
+* **Type checking**: mypy (strict mode)
 
 All components are designed to run locally via Docker with zero host dependencies.
 
 ---
 
-## Project Structure (Planned)
+## Project Structure
 
 ```
 payments-core/
-├── app/
-│   ├── adapters/
-│   ├── domain/
-│   ├── entrypoints/
-│   ├── infrastructure/
-│   └── ports/
-│   └── use_cases/
+├── src/
+│   └── payments_core/
+│       ├── domain/
+│       │   ├── entities/
+│       │   ├── value_objects/
+│       │   ├── services/
+│       │   └── exceptions.py
+│       ├── application/
+│       │   ├── use_cases/
+│       │   ├── ports/
+│       │   └── dtos.py
+│       ├── infrastructure/
+│       │   ├── persistence/
+│       │   ├── time_provider.py
+│       │   └── locking.py
+│       └── entrypoints/
+│           └── api/
 ├── tests/
+│   ├── unit/
+│   │   ├── domain/
+│   │   └── application/
+│   ├── integration/
+│   └── conftest.py
 ├── docker/
-├── docker-compose.yml
+│   └── dev.Dockerfile
+├── compose.yml
 ├── pyproject.toml
+├── Makefile
 └── README.md
 ```
 
