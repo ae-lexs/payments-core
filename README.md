@@ -214,32 +214,6 @@ payments-core/
 
 ---
 
-## Development Approach
-
-The project will be developed **incrementally by stages**, each accompanied by an **Architecture Decision Record (ADR)**.
-
-Each stage will:
-
-* Introduce one core concept (e.g. idempotency, DB constraints, time rules)
-* Be reviewed and validated against invariants
-* Preserve correctness guarantees from previous stages
-
-This ensures the system evolves without regressions.
-
----
-
-## Why This Project Exists
-
-Payment systems are not hard because of syntax or frameworks—they are hard because **small correctness bugs create large financial and trust failures**.
-
-This project exists to:
-
-* Practice thinking in invariants and failure modes
-* Demonstrate senior-level backend judgment
-* Serve as a reusable reference for interviews and real-world design
-
----
-
 ## Dependency Management
 
 Dependencies are managed with **[uv](https://docs.astral.sh/uv/)** and fully locked.
@@ -254,6 +228,20 @@ git commit -m "update dependencies"
 ```
 
 All environments (local, CI, production) install dependencies strictly from the lockfile.
+
+---
+
+## Development Approach
+
+The project will be developed **incrementally by stages**, each accompanied by an **Architecture Decision Record (ADR)**.
+
+Each stage will:
+
+* Introduce one core concept (e.g. idempotency, DB constraints, time rules)
+* Be reviewed and validated against invariants
+* Preserve correctness guarantees from previous stages
+
+This ensures the system evolves without regressions.
 
 ---
 
