@@ -26,7 +26,7 @@ class PaymentState(Enum):
     FAILED = "failed"
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Payment:
     """Payment entity with state machine behavior.
 

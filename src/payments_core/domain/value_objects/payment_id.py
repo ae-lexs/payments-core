@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from uuid import UUID, uuid4
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class PaymentId:
     value: UUID
 

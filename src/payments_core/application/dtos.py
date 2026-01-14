@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class CapturePaymentRequest:
     """Input DTO for the CapturePayment use case."""
 
@@ -12,7 +12,7 @@ class CapturePaymentRequest:
     amount_cents: int
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class CapturePaymentResponse:
     """Output DTO for the CapturePayment use case."""
 

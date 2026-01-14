@@ -8,7 +8,7 @@ MAX_LENGTH = 64
 ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_:./")
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class IdempotencyKey:
     """Domain value object for idempotency keys.
 
