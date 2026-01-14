@@ -98,14 +98,13 @@ Fields (conceptual):
 
 ### Captures
 
-Represents an idempotent capture attempt.
+Represents a successful capture (per ADR-001/ADR-004: only successful captures are stored).
 
 Fields (conceptual):
 
 * `id`
 * `payment_id`
 * `idempotency_key`
-* `status`
 * `amount_cents`
 * `created_at`
 
@@ -247,7 +246,7 @@ This ensures the system evolves without regressions.
 
 | ADR | Title | Status |
 |-----|-------|--------|
-| [ADR-001](docs/ADR-001.md) | Core Domain Model and In-Memory Correctness | Proposed |
+| [ADR-001](docs/ADR-001.md) | Core Domain Model and In-Memory Correctness | Implemented |
 | [ADR-002](docs/ADR-002.md) | Time Provider Interface and Implementation | Proposed |
 | [ADR-003](docs/ADR-003.md) | Lock Provider Interface and In-Memory Implementation | Proposed |
 | [ADR-004](docs/ADR-004.md) | Repository Interfaces and CapturePayment Use Case | Proposed |
@@ -258,6 +257,19 @@ This ensures the system evolves without regressions.
 
 🚧 **Work in progress** — project is intentionally built step by step.
 
-Current stage: **Stage 1 — Core domain model & in-memory capture correctness**
+Current stage: **Stage 1 — Core domain model (ADR-001 complete)**
 
-Next step: **Implement ADR-001 and ADR-002**
+### Completed
+
+- **Domain Layer** (ADR-001):
+  - `Payment` entity with state machine (`pending` → `authorized` → `captured`/`failed`)
+  - `Capture` entity with `create()` factory and amount validation
+  - Value objects: `PaymentId`, `CaptureId`, `IdempotencyKey` (with validation)
+  - Domain exceptions hierarchy (10 exception types)
+  - Repository ports: `PaymentRepository`, `CaptureRepository`
+
+### Next Steps
+
+- **ADR-002**: Time Provider interface and implementation
+- **ADR-003**: Lock Provider interface and in-memory implementation
+- **ADR-004**: In-memory repository implementations and `CapturePaymentUseCase`
