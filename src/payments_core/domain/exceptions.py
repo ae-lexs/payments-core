@@ -9,6 +9,7 @@ Exception hierarchy:
     ├── Not Found Errors
     │   └── PaymentNotFoundError
     ├── Validation Errors
+    │   ├── InvalidCaptureIdError
     │   ├── InvalidPaymentIdError
     │   ├── InvalidIdempotencyKeyError
     │   └── InvalidAmountError
@@ -82,6 +83,13 @@ class PaymentNotFoundError(DomainException):
 # =============================================================================
 # Validation Errors
 # =============================================================================
+
+
+class InvalidCaptureIdError(DomainException):
+    """Raised when a capture ID fails validation.
+
+    Per ADR-001 Section 5: CaptureId must be a valid UUID v4.
+    """
 
 
 class InvalidPaymentIdError(DomainException):

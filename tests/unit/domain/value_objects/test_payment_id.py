@@ -2,6 +2,7 @@ from uuid import UUID
 
 import pytest
 
+from payments_core.domain.exceptions import InvalidPaymentIdError
 from payments_core.domain.value_objects import PaymentId
 
 
@@ -43,15 +44,15 @@ class TestPaymentIdFromString:
         assert payment_id.value == UUID("550e8400-e29b-41d4-a716-446655440000")
 
     def test_from_string_raises_for_invalid_uuid(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidPaymentIdError):
             PaymentId.from_string("not-a-valid-uuid")
 
     def test_from_string_raises_for_empty_string(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidPaymentIdError):
             PaymentId.from_string("")
 
     def test_from_string_raises_for_too_short_uuid(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidPaymentIdError):
             PaymentId.from_string("550e8400-e29b-41d4-a716")
 
 

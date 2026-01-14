@@ -2,6 +2,7 @@ from uuid import UUID
 
 import pytest
 
+from payments_core.domain.exceptions import InvalidCaptureIdError
 from payments_core.domain.value_objects import CaptureId
 
 
@@ -42,15 +43,15 @@ class TestCaptureIdFromString:
         assert capture_id.value == UUID("550e8400-e29b-41d4-a716-446655440000")
 
     def test_from_string_raises_for_invalid_uuid(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidCaptureIdError):
             CaptureId.from_string("not-a-valid-uuid")
 
     def test_from_string_raises_for_empty_string(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidCaptureIdError):
             CaptureId.from_string("")
 
     def test_from_string_raises_for_too_short_uuid(self) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidCaptureIdError):
             CaptureId.from_string("550e8400-e29b-41d4-a716")
 
 
