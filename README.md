@@ -248,7 +248,7 @@ This ensures the system evolves without regressions.
 |-----|-------|--------|
 | [ADR-001](docs/ADR-001.md) | Core Domain Model and In-Memory Correctness | Implemented |
 | [ADR-002](docs/ADR-002.md) | Time Provider Interface and Implementation | Implemented |
-| [ADR-003](docs/ADR-003.md) | Lock Provider Interface and In-Memory Implementation | Proposed |
+| [ADR-003](docs/ADR-003.md) | Lock Provider Interface and In-Memory Implementation | Implemented |
 | [ADR-004](docs/ADR-004.md) | Repository Interfaces and CapturePayment Use Case | Proposed |
 
 ---
@@ -257,7 +257,7 @@ This ensures the system evolves without regressions.
 
 🚧 **Work in progress** — project is intentionally built step by step.
 
-Current stage: **Stage 1 — Core domain model and time provider (ADR-001, ADR-002 complete)**
+Current stage: **Stage 1 — Core domain model, time provider, and lock provider (ADR-001, ADR-002, ADR-003 complete)**
 
 ### Completed
 
@@ -273,7 +273,11 @@ Current stage: **Stage 1 — Core domain model and time provider (ADR-001, ADR-0
   - `SystemTimeProvider` for production (system clock)
   - `FixedTimeProvider` for testing (controllable time with UTC validation)
 
+- **Lock Provider** (ADR-003):
+  - `LockProvider` port in application layer
+  - `InMemoryLockProvider` with two-phase locking for thread safety
+  - `NoOpLockProvider` for single-threaded unit tests
+
 ### Next Steps
 
-- **ADR-003**: Lock Provider interface and in-memory implementation
 - **ADR-004**: In-memory repository implementations and `CapturePaymentUseCase`

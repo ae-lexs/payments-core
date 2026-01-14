@@ -5,11 +5,13 @@ This allows the application layer to remain decoupled from concrete implementati
 """
 
 from payments_core.application.ports.capture_repository import CaptureRepository
+from payments_core.application.ports.lock_provider import LockProvider
 from payments_core.application.ports.payment_repository import PaymentRepository
 from payments_core.application.ports.time_provider import TimeProvider
 
 __all__ = [
     "CaptureRepository",
+    "LockProvider",
     "PaymentRepository",
     "TimeProvider",
 ]
