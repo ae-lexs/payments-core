@@ -1,7 +1,7 @@
 import pytest
 
 from payments_core.domain.exceptions import InvalidIdempotencyKeyError
-from payments_core.domain.value_objects.idempotency_key import IdempotencyKey
+from payments_core.domain.value_objects import IdempotencyKey
 
 
 class TestIdempotencyKeyCreation:

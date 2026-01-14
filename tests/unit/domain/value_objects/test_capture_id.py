@@ -2,7 +2,7 @@ from uuid import UUID
 
 import pytest
 
-from payments_core.domain.value_objects.capture_id import CaptureId
+from payments_core.domain.value_objects import CaptureId
 
 
 class TestCaptureIdGenerate:

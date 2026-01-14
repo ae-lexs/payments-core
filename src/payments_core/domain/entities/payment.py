@@ -14,7 +14,7 @@ from payments_core.domain.exceptions import InvalidStateTransitionError
 if TYPE_CHECKING:
     from datetime import datetime, timedelta
 
-    from payments_core.domain.value_objects.payment_id import PaymentId
+    from payments_core.domain.value_objects import PaymentId
 
 
 class PaymentState(Enum):

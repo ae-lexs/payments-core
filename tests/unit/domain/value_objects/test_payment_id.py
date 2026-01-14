@@ -2,7 +2,7 @@ from uuid import UUID
 
 import pytest
 
-from payments_core.domain.value_objects.payment_id import PaymentId
+from payments_core.domain.value_objects import PaymentId
 
 
 class TestPaymentIdGenerate:
