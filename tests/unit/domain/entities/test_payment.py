@@ -248,6 +248,21 @@ class TestPaymentCanCapture:
 
         assert payment.can_capture(now) is True
 
+    def test_cannot_capture_authorized_payment_with_no_expiry(
+        self, payment_id: PaymentId, now: datetime
+    ) -> None:
+        """Edge case: AUTHORIZED payment with capture_expires_at=None cannot be captured."""
+        payment = Payment(
+            id=payment_id,
+            state=PaymentState.AUTHORIZED,
+            authorized_at=now - timedelta(hours=1),
+            capture_expires_at=None,
+            captured_at=None,
+            captured_amount_cents=None,
+        )
+
+        assert payment.can_capture(now) is False
+
 
 # =============================================================================
 # Payment.capture() Tests - ADR-001 Section 2
