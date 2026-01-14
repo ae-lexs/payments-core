@@ -13,7 +13,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from payments_core.domain.entities.payment import Payment, PaymentState
+from payments_core.domain.entities import Payment, PaymentState
 from payments_core.domain.exceptions import InvalidStateTransitionError
 from payments_core.domain.value_objects import PaymentId
 
