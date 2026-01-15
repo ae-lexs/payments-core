@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor, wait
 import pytest
 
 from payments_core.application.ports import LockProvider
-from payments_core.infrastructure.lock_provider import (
+from payments_core.infrastructure import (
     InMemoryLockProvider,
     NoOpLockProvider,
 )

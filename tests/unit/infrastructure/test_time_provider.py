@@ -11,7 +11,7 @@ from datetime import UTC, datetime, timezone
 import pytest
 
 from payments_core.application.ports import TimeProvider
-from payments_core.infrastructure.time_provider import (
+from payments_core.infrastructure import (
     FixedTimeProvider,
     SystemTimeProvider,
 )
