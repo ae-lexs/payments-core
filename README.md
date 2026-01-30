@@ -162,25 +162,52 @@ payments-core/
 │   └── payments_core/
 │       ├── domain/
 │       │   ├── entities/
+│       │   │   ├── payment.py          # Payment entity with state machine
+│       │   │   └── capture.py          # Capture entity with create() factory
 │       │   ├── value_objects/
-│       │   ├── services/
-│       │   └── exceptions.py
+│       │   │   ├── payment_id.py       # PaymentId (UUID v4)
+│       │   │   ├── capture_id.py       # CaptureId (UUID v4)
+│       │   │   └── idempotency_key.py  # IdempotencyKey (validated string)
+│       │   └── exceptions.py           # Domain exception hierarchy
 │       ├── application/
 │       │   ├── use_cases/
-│       │   ├── ports/
-│       │   └── dtos.py
+│       │   │   └── capture_payment.py  # CapturePaymentUseCase
+│       │   └── ports/
+│       │       ├── payment_repository.py
+│       │       ├── capture_repository.py
+│       │       ├── time_provider.py
+│       │       └── lock_provider.py
 │       ├── infrastructure/
-│       │   ├── persistence/
-│       │   ├── time_provider.py
-│       │   └── locking.py
+│       │   ├── payment_repository.py   # InMemoryPaymentRepository
+│       │   ├── capture_repository.py   # InMemoryCaptureRepository
+│       │   ├── time_provider.py        # SystemTimeProvider, FixedTimeProvider
+│       │   └── lock_provider.py        # InMemoryLockProvider, NoOpLockProvider
 │       └── entrypoints/
 │           └── api/
 ├── tests/
 │   ├── unit/
 │   │   ├── domain/
-│   │   └── application/
-│   ├── integration/
-│   └── conftest.py
+│   │   │   ├── entities/
+│   │   │   │   ├── test_payment.py
+│   │   │   │   └── test_capture.py
+│   │   │   └── value_objects/
+│   │   │       ├── test_payment_id.py
+│   │   │       ├── test_capture_id.py
+│   │   │       └── test_idempotency_key.py
+│   │   ├── application/
+│   │   │   └── use_cases/
+│   │   │       └── test_capture_payment.py
+│   │   └── infrastructure/
+│   │       ├── test_payment_repository.py
+│   │       ├── test_capture_repository.py
+│   │       ├── test_time_provider.py
+│   │       └── test_lock_provider.py
+│   └── integration/
+├── docs/
+│   ├── ADR-001.md
+│   ├── ADR-002.md
+│   ├── ADR-003.md
+│   └── ADR-004.md
 ├── docker/
 │   └── dev.Dockerfile
 ├── compose.yml
@@ -249,7 +276,7 @@ This ensures the system evolves without regressions.
 | [ADR-001](docs/ADR-001.md) | Core Domain Model and In-Memory Correctness | Implemented |
 | [ADR-002](docs/ADR-002.md) | Time Provider Interface and Implementation | Implemented |
 | [ADR-003](docs/ADR-003.md) | Lock Provider Interface and In-Memory Implementation | Implemented |
-| [ADR-004](docs/ADR-004.md) | Repository Interfaces and CapturePayment Use Case | Proposed |
+| [ADR-004](docs/ADR-004.md) | Repository Interfaces and CapturePayment Use Case | Implemented |
 
 ---
 
@@ -257,7 +284,7 @@ This ensures the system evolves without regressions.
 
 🚧 **Work in progress** — project is intentionally built step by step.
 
-Current stage: **Stage 1 — Core domain model, time provider, and lock provider (ADR-001, ADR-002, ADR-003 complete)**
+Current stage: **Stage 1 Complete — In-memory correctness layer (ADR-001 through ADR-004)**
 
 ### Completed
 
@@ -278,6 +305,13 @@ Current stage: **Stage 1 — Core domain model, time provider, and lock provider
   - `InMemoryLockProvider` with two-phase locking for thread safety
   - `NoOpLockProvider` for single-threaded unit tests
 
+- **Repositories and Use Case** (ADR-004):
+  - `InMemoryPaymentRepository` with copy-on-read semantics
+  - `InMemoryCaptureRepository` with `(payment_id, idempotency_key)` composite key
+  - `CapturePaymentUseCase` orchestrating lock, time, idempotency, and persistence
+  - Full test coverage for concurrency, idempotency, and validation scenarios
+
 ### Next Steps
 
-- **ADR-004**: In-memory repository implementations and `CapturePaymentUseCase`
+- **Stage 2**: Database persistence with PostgreSQL and transactional guarantees
+- **HTTP API**: FastAPI entrypoints for capture operations
